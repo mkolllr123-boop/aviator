@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#10131d"><title>AVIATOR AI | لوحة التحليل</title>
+<style>
+:root{--bg:#0b0e16;--panel:#151a27;--panel2:#1b2232;--line:#2b3448;--txt:#f4f6fb;--muted:#9ca8bc;--red:#ff5364;--green:#35d39a;--gold:#ffc766}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1a2030 0,#0b0e16 55%);color:var(--txt);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+.wrap{max-width:1200px;margin:auto;padding:22px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand{font-size:22px;font-weight:900;letter-spacing:1px}.brand span{color:var(--red)}.sub{color:var(--muted);font-size:13px}
+.pill{border:1px solid var(--line);border-radius:30px;padding:8px 12px;color:var(--muted);font-size:12px}
+.grid{display:grid;grid-template-columns:1.3fr .9fr;gap:16px}.panel{background:linear-gradient(145deg,var(--panel),#111622);border:1px solid var(--line);border-radius:18px;padding:17px;min-width:0}
+h2{font-size:16px;margin:0 0 14px}.game{height:310px;border-radius:13px;background:radial-gradient(ellipse at 50% 80%,#42202c,#171b2a 65%);display:flex;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;border:1px solid #453044}
+.plane{font-size:54px}.game strong{display:block;font-size:28px;margin:10px}.game p{color:#c1cada;font-size:13px;margin:5px 0}.game .hint{position:absolute;bottom:12px;left:12px;right:12px;font-size:11px;color:#b8c1d0}
+input,button{font:inherit;border-radius:10px;border:1px solid var(--line);padding:11px;background:#0e1320;color:var(--txt);min-width:0}
+button{cursor:pointer;background:#9d293b;border:0;font-weight:750}button.secondary{background:var(--panel2);border:1px solid var(--line)}button.danger{background:#48202a}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row input{flex:1;min-width:130px}.row button{white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:13px}.stat{background:var(--panel2);padding:12px;border-radius:12px}.stat small{display:block;color:var(--muted);font-size:11px}.stat b{font-size:22px;display:block;margin-top:5px}
+.signal{background:#211c2c;border:1px solid #594052;border-radius:13px;padding:14px;margin-bottom:12px}.signal b{font-size:19px;color:var(--gold)}.signal p{color:var(--muted);font-size:12px;line-height:1.6;margin:7px 0 0}
+.formula{font-size:12px;color:var(--muted);line-height:1.7}.history{display:flex;gap:7px;flex-wrap:wrap;max-height:155px;overflow:auto}.chip{padding:7px 9px;border-radius:8px;background:#262d3d;font-size:12px}.chip.low{color:#ff9ba5}.chip.high{color:#78e4b9}
+.notice{border-right:3px solid var(--gold);padding:9px 12px;background:#262316;color:#e8d9b5;border-radius:8px;font-size:12px;line-height:1.7;margin-top:14px}
+label{font-size:12px;color:var(--muted);display:block;margin:12px 0 6px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.game{height:240px}.wrap{padding:13px}.stats{grid-template-columns:repeat(3,1fr)}}
+</style></head>
+<body><main class="wrap">
+<header class="top"><div><div class="brand">✈ AVIATOR <span>AI</span></div><div class="sub">لوحة متابعة وتحليل الجولات — إصدار تجريبي</div></div><div class="pill">Melbet · وضع تجريبي</div></header>
+<section class="grid">
+<div class="panel"><h2>شاشة اللعبة</h2>
+<div class="game"><div><div class="plane">✈️</div><strong>GAME VIEW</strong><p>اربط صفحة اللعبة في الإصدار القادم</p></div><div class="hint">هذه النسخة تفتح رابط اللعبة في نفس الصفحة عند الضغط على زر الانتقال. لا تعرض بث Melbet داخل اللوحة تلقائياً.</div></div>
+<label>رابط صفحة Aviator (اختياري)</label><div class="row"><input id="url" placeholder="الصق رابط صفحة اللعبة هنا"><button class="secondary" onclick="openGame()">الانتقال إلى Melbet</button></div>
+<div class="notice">هذه مساحة واجهة فقط وليست بثاً مباشراً. لا تدخل بيانات تسجيل الدخول هنا.</div>
+</div>
+<div class="panel"><h2>مركز التحليل</h2>
+<div class="signal"><div class="sub">قراءة النظام</div><b id="signal">بانتظار البيانات</b><p id="signalText">أضف نتائج جولات موثقة لعرض إحصاءات وصفية. لا توجد إشارة تنبؤية موثوقة.</p></div>
+<div class="stats">
+<div class="stat"><small>عدد الجولات</small><b id="count">0</b></div>
+<div class="stat"><small>متوسط المضاعف</small><b id="avg">—</b></div>
+<div class="stat"><small>أعلى مضاعف</small><b id="max">—</b></div>
+</div>
+<div class="formula" style="margin-top:14px">المؤشرات تصف النتائج التي أدخلتها فقط، ولا تتنبأ بنتيجة الجولة التالية.</div>
+</div></section>
+<section class="panel" style="margin-top:16px"><h2>إضافة نتيجة جولة</h2><div class="row"><input id="mult" type="number" min="1" step=".01" placeholder="مثال: 1.42"><button onclick="addRound()">إضافة النتيجة</button><button class="secondary" onclick="undo()">تراجع</button><button class="danger" onclick="clearAll()">مسح السجل</button></div>
+<label>الجولات المسجلة</label><div class="history" id="history"><span class="sub">لا توجد نتائج بعد.</span></div>
+<div class="notice">للتجربة والتحقق الإحصائي فقط: لا تستخدم هذه البيانات لاتخاذ قرارات مراهنة أو اعتبارها ضماناً للربح.</div></section>
+</main>
+<script>
+let rounds=[];try{rounds=JSON.parse(localStorage.getItem('aviator_demo_rounds')||'[]')}catch(e){}
+const $=id=>document.getElementById(id);
+function save(){localStorage.setItem('aviator_demo_rounds',JSON.stringify(rounds));render()}
+function addRound(){let v=Number($('mult').value);if(!Number.isFinite(v)||v<1){alert('أدخل مضاعفاً صحيحاً أكبر من أو يساوي 1');return}rounds.unshift(Math.round(v*100)/100);$('mult').value='';save()}
+function undo(){rounds.shift();save()}
+function clearAll(){if(confirm('مسح كل النتائج المحفوظة؟')){rounds=[];save()}}
+function openGame(){let u=$('url').value.trim();if(!/^https:\/\/.+/i.test(u)){alert('أدخل رابطاً يبدأ بـ https://');return}window.location.href=u}
+function render(){
+$('count').textContent=rounds.length;
+if(!rounds.length){$('avg').textContent='—';$('max').textContent='—';$('signal').textContent='بانتظار البيانات';$('signalText').textContent='أضف نتائج جولات موثقة لعرض إحصاءات وصفية.';$('history').innerHTML='<span class="sub">لا توجد نتائج بعد.</span>';return}
+let avg=rounds.reduce((a,b)=>a+b,0)/rounds.length;
+$('avg').textContent=avg.toFixed(2)+'x';$('max').textContent=Math.max(...rounds).toFixed(2)+'x';
+$('signal').textContent='تحليل وصفي فقط';$('signalText').textContent='تم تسجيل '+rounds.length+' جولة. التكرارات والأنماط السابقة لا تكشف المضاعف القادم.';
+$('history').innerHTML=rounds.map(v=>`<span class="chip ${v<2?'low':v>=5?'high':''}">${v.toFixed(2)}x</span>`).join('');
+}
+render();
+</script></body></html>
